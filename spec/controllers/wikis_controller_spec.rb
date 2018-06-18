@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
-    let(:user) { User.create!(email: RandomData.random_email, password: "password") }
+    let(:user) { User.create!(email: RandomData.random_email, password: "password", role: :standard) }
     let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
 
     describe "GET #index" do
@@ -113,6 +113,9 @@ RSpec.describe WikisController, type: :controller do
     end
 
     describe "DELETE destroy" do
+        before do
+            user.admin!
+        end
         it "deletes the Wiki" do
             delete :destroy, params: { id: my_wiki.id }
             count = Wiki.where({id: my_wiki.id}).size

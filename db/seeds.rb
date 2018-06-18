@@ -17,6 +17,12 @@ users = User.all
 end
 wikis = Wiki.all
 
+admin = User.create!(
+    email: 'dcschreck@hotmail.com',
+    password: 'password',
+    role: 'admin'
+)
+
 puts "Seeds finished"
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
