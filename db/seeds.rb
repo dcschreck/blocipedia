@@ -1,17 +1,18 @@
 require 'random_data'
+require 'faker'
 
 10.times do
     User.create!(
-        email: RandomData.random_email,
-        password: RandomData.random_sentence
+        email: Faker::Internet.unique.email,
+        password: Faker::Number.number(6)
     )
 end
 users = User.all
 
 20.times do
     Wiki.create!(
-        title: RandomData.random_sentence,
-        body: RandomData.random_paragraph,
+        title: Faker::String.random(5..10),
+        body: Faker::String.random(20..40),
         user: users.sample
     )
 end
