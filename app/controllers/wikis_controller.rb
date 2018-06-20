@@ -1,6 +1,7 @@
 class WikisController < ApplicationController
     def index
         @wikis = Wiki.all
+        authorize @wikis
     end
 
     def show
@@ -8,19 +9,19 @@ class WikisController < ApplicationController
     end
 
     def new
-        authorize @wiki
         @wiki = Wiki.new
+        authorize @wiki
     end
 
     def edit
-        authorize @wiki
         @wiki = Wiki.find(params[:id])
+        authorize @wiki
     end
 
     def update
-        authorize @wiki
         @wiki = Wiki.find(params[:id])
         @wiki.assign_attributes(wiki_params)
+        authorize @wiki
 
         if @wiki.save
             flash[:notice] = "Wiki was updated."
@@ -32,9 +33,9 @@ class WikisController < ApplicationController
     end
 
     def create
-        authorize @wiki
         @wiki = Wiki.new(wiki_params)
         @wiki.user = current_user
+        authorize @wiki
 
         if @wiki.save
             flash[:notice] = "Wiki was saved."

@@ -7,7 +7,7 @@ class WikiPolicy < ApplicationPolicy
     end
 
     def index?
-        false
+        user.present? || user.nil?
     end
 
     def show?
