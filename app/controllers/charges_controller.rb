@@ -1,8 +1,7 @@
 class ChargesController < ApplicationController
-  def index
-  end
 
   def new
+      # @user = current_user
       @stripe_btn_data = {
           key: "#{ Rails.configuration.stripe[:publishable_key] }",
           description: "Premium Membership - #{current_user.email}",
@@ -11,6 +10,7 @@ class ChargesController < ApplicationController
   end
 
   def create
+      # @user = current_user
       customer = Stripe::Customer.create(
           email: current_user.email,
           card: params[:stripeToken]
@@ -26,5 +26,6 @@ class ChargesController < ApplicationController
       current_user.premium!
       flash[:notice] = "Thank you for your business, #{current_user.email}! Enjoy Blocipedia!"
       redirect_to wikis_path
+
   end
 end
