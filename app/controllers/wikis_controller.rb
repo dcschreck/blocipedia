@@ -8,14 +8,17 @@ class WikisController < ApplicationController
     end
 
     def new
+        authorize @wiki
         @wiki = Wiki.new
     end
 
     def edit
+        authorize @wiki
         @wiki = Wiki.find(params[:id])
     end
 
     def update
+        authorize @wiki
         @wiki = Wiki.find(params[:id])
         @wiki.assign_attributes(wiki_params)
 
@@ -29,6 +32,7 @@ class WikisController < ApplicationController
     end
 
     def create
+        authorize @wiki
         @wiki = Wiki.new(wiki_params)
         @wiki.user = current_user
 
