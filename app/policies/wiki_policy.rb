@@ -1,5 +1,18 @@
 class WikiPolicy < ApplicationPolicy
-    # attr_accessor :user, :wiki
+    attr_reader :user, :wiki
+
+    def initialize(user, record)
+      @user = user
+      @record = record
+    end
+
+    def show?
+        user.present?
+    end 
+
+    def new?
+        user.present?
+    end
 
     def destroy?
         user.role == 'admin' || record.user == user
