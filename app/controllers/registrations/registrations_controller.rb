@@ -7,39 +7,23 @@ class Registrations::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   # def new
   #   super
-  #
-  #   @stripe_btn_data = {
-  #       key: "#{ Rails.configuration.stripe[:publishable_key] }",
-  #       description: "Premium Membership - #{current_user.email}",
-  #       amount: 15_00
-  #   }
   # end
 
   # POST /resource
   # def create
   #   super
-  #
-  #   customer = Stripe::Customer.create(
-  #       email: current_user.email,
-  #       card: params[:stripeToken]
-  #   )
-  #
-  #   charge = Stripe::Charge.create(
-  #       customer: customer.id,
-  #       amount: 15_00,
-  #       description: "Premium Membership - #{current_user.email}",
-  #       currency: 'usd'
-  #   )
-  #
-  #   current_user.premium!
-  #   flash[:notice] = "Thank you for your business, #{current_user.email}! Enjoy Blocipedia!"
-  #   redirect_to wikis_path
   # end
 
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  GET /resource/edit
+  def edit
+    puts "registration:RegistrationsController"
+    super
+    @stripe_btn_data = {
+        key: "#{ Rails.configuration.stripe[:publishable_key] }",
+        description: "Premium Membership - #{current_user.email}",
+        amount: 15_00
+    }
+  end
 
   # PUT /resource
   # def update
