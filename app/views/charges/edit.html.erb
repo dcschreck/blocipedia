@@ -1,9 +1,7 @@
 <h4>Downgrade Your Account</h4>
-<p>By hitting this button, you will be downgraded to a standard user and will no longer be able to create or view private wikis. <strong> And since you're a grown-up,</strong> there is no "Are you really, really sure" message. Once you hit this button, you are downgraded!</p>
+<p>By hitting this button, you will be downgraded to a standard user and will no longer be able to create or view private wikis. All of your private Wikis will become public.</p>
 
 
 <div class="form-group">
-    <%= form_tag charges_path, method: :post do %>
-        <%= link_to "Downgrade", charges_update_path, class: 'btn btn-danger' %>
-    <% end %>
+    <%= link_to "Downgrade", charges_update_path, method: :post, class: 'btn btn-danger', data: {confirm: 'By downgrading, all private Wikis that you have created will become public. Are you sure you want to downgrade?'} %>
 </div>
