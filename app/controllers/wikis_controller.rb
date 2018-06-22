@@ -38,7 +38,11 @@ class WikisController < ApplicationController
         authorize @wiki
 
         if @wiki.save
-            flash[:notice] = "Wiki was saved."
+            if @wiki.private?
+                flash[:notice] = "Private Wiki was saved."
+            else
+                flash[:notice] = "Wiki was saved."
+            end 
             redirect_to @wiki
         else
             flash.now[:alert] = "There was an error saving the Wiki. Please try again."
@@ -61,6 +65,6 @@ class WikisController < ApplicationController
 
     private
     def wiki_params
-        params.require(:wiki).permit(:title, :body)
+        params.require(:wiki).permit(:title, :body, :private)
     end
 end
