@@ -5,6 +5,8 @@ class User < ApplicationRecord
         end
     end
 
+    after_update :private_to_public
+
     has_many :wikis
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -12,4 +14,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
     enum role: [:standard, :premium, :admin]
+
+    private
+    def private_to_public
+        if self.standard?
+            self.wikis.update_all private: "false"
+        end
+    end
 end

@@ -28,19 +28,8 @@ class ChargesController < ApplicationController
   end
 
   def edit
-      @user = User.find(params[:id])
   end
 
   def update
-      @user = current_user
-      @user.wikis.map do |wiki|
-          if wiki.private?
-              wiki.private = "false"
-              wiki.save
-          end
-      end
-      @user.standard!
-      redirect_to root_path
-      flash[:notice] = "Your account has been downgraded."
   end
 end
