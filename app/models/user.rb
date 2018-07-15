@@ -5,9 +5,13 @@ class User < ApplicationRecord
         end
     end
 
-    after_update :private_to_public
+    before_update :publish_wikis
 
     has_many :wikis
+
+    has_many :collaborators
+    has_many :wiki_collabs, source: :wiki, through: :collaborators
+
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
     devise :database_authenticatable, :registerable,
@@ -16,9 +20,8 @@ class User < ApplicationRecord
     enum role: [:standard, :premium, :admin]
 
     private
-    def private_to_public
-        if self.standard?
-            self.wikis.update_all private: "false"
-        end
+    def publish_wikis
+        return unless role_was == 'premium' && role == 'standard'
+        wikis.update_all(private: false)
     end
 end

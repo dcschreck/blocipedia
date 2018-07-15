@@ -1,11 +1,11 @@
 class WikisController < ApplicationController
     def index
-        @wikis = Wiki.all
-        authorize @wikis
+        @wikis = policy_scope(Wiki)
     end
 
     def show
         @wiki = Wiki.find(params[:id])
+        authorize @wiki
     end
 
     def new
@@ -42,7 +42,7 @@ class WikisController < ApplicationController
                 flash[:notice] = "Private Wiki was saved."
             else
                 flash[:notice] = "Wiki was saved."
-            end 
+            end
             redirect_to @wiki
         else
             flash.now[:alert] = "There was an error saving the Wiki. Please try again."
@@ -51,8 +51,7 @@ class WikisController < ApplicationController
     end
 
     def destroy
-        @wiki = Wiki.find(params[:id])
-        authorize @wiki
+        @wiki = policy_scope(Wiki)
 
         if @wiki.destroy
             flash[:notice] = "\"#{@wiki.title}\" was deleted sucessfully."
