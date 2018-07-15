@@ -3,6 +3,3 @@
 <div class="row">
     <%= render partial: 'form', locals: { wiki: @wiki } %>
 </div>
-<% if @wiki.private? && @wiki.user == current_user %>
-    <%= render partial: 'collaborators/collaborator', locals: { wiki: @wiki } %>
-<% end %>

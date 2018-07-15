@@ -3,15 +3,13 @@
 <div class="row">
     <div class="col-md-8">
         <% @wikis.each do |wiki| %>
-            <% if policy(Wiki).index? %>
-                <div class="media">
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            <%= link_to wiki.title, wiki %>
-                        </h4>
-                    </div>
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <%= link_to wiki.title, wiki %>
+                    </h4>
                 </div>
-            <% end %>
+            </div>
         <% end %>
     </div>
     <% if policy(Wiki).create? %>
