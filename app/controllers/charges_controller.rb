@@ -22,7 +22,7 @@ class ChargesController < ApplicationController
       )
 
       current_user.premium!
-      flash[:notice] = "Thank you for your business, #{current_user.email}! Enjoy Blocipedia!"
+      flash[:notice] = "Thank you for your business, #{current_user.email}! Enjoy Webipedia!"
       redirect_to wikis_path
 
   end

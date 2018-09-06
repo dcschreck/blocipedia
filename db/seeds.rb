@@ -11,8 +11,8 @@ users = User.all
 
 20.times do
     Wiki.create!(
-        title: Faker::String.random(5..10),
-        body: Faker::String.random(20..40),
+        title: Faker::Seinfeld.character,
+        body: (Faker::Seinfeld.quote) + ' ' + (Faker::Seinfeld.quote) + ' ' + (Faker::Seinfeld.quote),
         user: users.sample
     )
 end
